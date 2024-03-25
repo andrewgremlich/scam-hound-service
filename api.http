@@ -1,0 +1,18 @@
+@HOST=http://localhost:8000
+
+###
+POST {{HOST}}/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "gremlich@duck.com",
+    "password": "password"
+}
+
+###
+DELETE {{HOST}}/api/auth/delete?username=gremlich@duck.com HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhcGlLZXkiOiJlNTllMzgzNC01NGM2LTQyMGMtODRhOC03MjdmOTFmZWI4MDEiLCJpYXQiOjE3MTEzMjc5ODksImV4cCI6MTcxMzc0NzE4OSwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIn0.32oIsXcXrNWJK9AbxyC2HMxAl-LRnBOCuRNjFTf00JGTwkZ3thGV5HgVEYqpBRBJKi6QwDSlRte5ZGu-Aaqlpg
+
+###
+GET {{HOST}}/api/issue HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhcGlLZXkiOiJlNTllMzgzNC01NGM2LTQyMGMtODRhOC03MjdmOTFmZWI4MDEiLCJpYXQiOjE3MTEzMjc5ODksImV4cCI6MTcxMzc0NzE4OSwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIn0.32oIsXcXrNWJK9AbxyC2HMxAl-LRnBOCuRNjFTf00JGTwkZ3thGV5HgVEYqpBRBJKi6QwDSlRte5ZGu-Aaqlpg
