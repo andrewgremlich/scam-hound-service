@@ -1,18 +1,16 @@
 import { Router } from "Oak";
 
-import { AppState } from "../index.ts";
-
 import { authRegister } from "./authRegister.ts";
 import { isAuthorized } from "./isAuthorized.ts";
 import { deleteRegister } from "./deleteRegister.ts";
 import { issueOneTimeToken } from "./issueOneTimeToken.ts";
 
-export const scamHound = new Router<AppState>()
+export const scamHound = new Router()
   .post("/auth/register", authRegister)
   .use(isAuthorized)
   .delete("/auth/register/delete", deleteRegister)
   .get("/token/issue", issueOneTimeToken)
-  .post("/token/verify", async (ctx) => {
+  .post("/token/verify", async (_ctx) => {
     // TODO: verify issued one time use tokens.
   });
 
