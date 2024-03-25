@@ -30,6 +30,11 @@ export const deleteRegister = async (ctx: Context) => {
 
     const { username, password } = DeleteRegisterBody.parse(rawbody);
     const user = await getUser(username);
+
+    if (!user) {
+      throw new AuthorizationError("User not found");
+    }
+
     const passwordVerified = verifyHash(password, user.hashedPassword);
 
     if (!passwordVerified) {

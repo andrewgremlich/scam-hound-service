@@ -14,7 +14,7 @@ export const setKey = async (label: string, key: JsonWebKey) => {
 };
 
 export const getKey = async (
-  label: string,
+  label: string
 ): Promise<JsonWebKey | undefined> => {
   const privateKey = await kv.get<JsonWebKey>([label]);
 
@@ -26,20 +26,19 @@ export const getKey = async (
   return privateKey.value;
 };
 
-export const getUser = async (
-  username: string,
-): Promise<UserStoreValue> => {
+export const getUser = async (username: string): Promise<UserStoreValue> => {
   return (await kv.get([username])).value as UserStoreValue;
 };
 
 export const setRegister = async (
   username: string,
-  tokenRequirements: UserStoreValue,
+  tokenRequirements: UserStoreValue
 ) => {
   const primaryKey = [username];
   const byApiToken = [tokenRequirements.apiKey];
 
-  const res = await kv.atomic()
+  const res = await kv
+    .atomic()
     .check({ key: primaryKey, versionstamp: null })
     .check({ key: byApiToken, versionstamp: null })
     .set(primaryKey, tokenRequirements)
@@ -48,7 +47,7 @@ export const setRegister = async (
 
   if (!res.ok) {
     throw new AuthorizationError(
-      "User with username and password already exists.",
+      "User with username and password already exists."
     );
   }
 };

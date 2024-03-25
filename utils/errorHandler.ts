@@ -41,6 +41,12 @@ export const errorHandler = (
     return;
   }
 
+  if (error instanceof TypeError) {
+    ctx.response.status = 400;
+    ctx.response.body = { error: true, data: error.message };
+    return;
+  }
+
   const DENO_ENV = Deno.env.get("DENO_ENV");
 
   if (DENO_ENV === "development") {

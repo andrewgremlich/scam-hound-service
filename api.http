@@ -10,9 +10,8 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{HOST}}/api/auth/delete?certain=yes HTTP/1.1
+DELETE {{HOST}}/api/auth/register/delete?certain=yes HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhcGlLZXkiOiJkNTU5Njk2ZC00MDlhLTRhZmEtOWYyYi1kYmJiMTg1Y2VjOWMiLCJpYXQiOjE3MTEzOTIwMjAsImV4cCI6MTcxMzgxMTIyMCwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIn0.jmCy4lF3oZEguDk0BsoMutcy6NpAL7_-W6Rp3MNpHguyzxqeH7HMsLu2dOLt2yhWGIjtfSe6vBZumopdXPuTnA
 
 {
     "username": "gremlich@duck.com",
