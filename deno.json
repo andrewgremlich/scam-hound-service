@@ -4,9 +4,9 @@
   },
   "imports": {
     "base64UrlEncode": "https://deno.land/std@0.205.0/encoding/base64url.ts",
-    "Oak": "https://deno.land/x/oak/mod.ts",
     "dotenv": "https://deno.land/std@0.220.1/dotenv/load.ts",
     "zod": "https://deno.land/x/zod@v3.16.1/mod.ts",
+    "Oak": "jsr:@oak/oak@14",
     "scrypt": "jsr:@denorg/scrypt@4.3.4",
     "~utils/": "./utils/"
   },

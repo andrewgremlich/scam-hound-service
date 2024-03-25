@@ -2,7 +2,7 @@ import { Context } from "Oak";
 import { z } from "zod";
 
 import { AuthorizationError, errorHandler } from "~utils/errorHandler.ts";
-import { genApiKey, hashPassword } from "~utils/register.ts";
+import { genApiKey, hashData, hashedId } from "~utils/register.ts";
 import { getUser, setRegister } from "~utils/kv.ts";
 import { inFourWeeksInSeconds } from "~utils/constants.ts";
 
@@ -23,27 +23,28 @@ export const authRegister = async (ctx: Context) => {
   try {
     const rawbody = await ctx.request.body.json();
     const { username, password } = RegisterBody.parse(rawbody);
-    const user = await getUser(username);
+    const hashedPassword = hashData(password);
+    const hashedUsername = hashData(username);
+    const user = await getUser(hashedUsername);
 
     if (user) {
       throw new AuthorizationError("User already exists.");
     }
 
-    const hashAndEncryptPassword = hashPassword(password);
-    const now = Temporal.Now.instant().epochSeconds;
     const apiKey = await genApiKey();
     const usageCount = 0;
-    const expirationDate = now + inFourWeeksInSeconds;
+    const expirationDate =
+      Temporal.Now.instant().epochSeconds + inFourWeeksInSeconds;
 
-    await setRegister(username, {
-      hashedPassword: hashAndEncryptPassword.hashed,
+    await setRegister(apiKey, {
+      hashedUsername,
+      hashedPassword,
       usageCount,
       expirationDate,
-      apiKey,
     });
 
     ctx.response.headers.set("Authorization", `Bearer ${apiKey}`);
-    ctx.response.body = { username, usageCount, expirationDate };
+    ctx.response.body = { usageCount, expirationDate };
   } catch (e) {
     errorHandler(ctx, e);
   }

@@ -3,7 +3,7 @@ import { AuthorizationError } from "~utils/errorHandler.ts";
 type UserStoreValue = {
   usageCount: number;
   expirationDate: number;
-  apiKey: string;
+  hashedUsername: string;
   hashedPassword: string;
 };
 
@@ -30,19 +30,23 @@ export const getUser = async (username: string): Promise<UserStoreValue> => {
   return (await kv.get([username])).value as UserStoreValue;
 };
 
+export const getUserById = async (id: string): Promise<UserStoreValue> => {
+  return (await kv.get([id])).value as UserStoreValue;
+};
+
 export const setRegister = async (
-  username: string,
+  id: string,
   tokenRequirements: UserStoreValue
 ) => {
-  const primaryKey = [username];
-  const byApiToken = [tokenRequirements.apiKey];
+  const primaryKey = [id];
+  const byHashedUsername = [tokenRequirements.hashedUsername];
 
   const res = await kv
     .atomic()
     .check({ key: primaryKey, versionstamp: null })
-    .check({ key: byApiToken, versionstamp: null })
+    .check({ key: byHashedUsername, versionstamp: null })
     .set(primaryKey, tokenRequirements)
-    .set(byApiToken, tokenRequirements)
+    .set(byHashedUsername, tokenRequirements)
     .commit();
 
   if (!res.ok) {
@@ -52,6 +56,6 @@ export const setRegister = async (
   }
 };
 
-export const removeRegister = async (username: string) => {
-  await kv.delete([username]);
+export const removeRegisterById = async (id: string) => {
+  await kv.delete([id]);
 };

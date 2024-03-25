@@ -1,11 +1,13 @@
 import { Router } from "Oak";
 
+import { AppState } from "../index.ts";
+
 import { authRegister } from "./authRegister.ts";
 import { isAuthorized } from "./isAuthorized.ts";
 import { deleteRegister } from "./deleteRegister.ts";
 import { issueOneTimeToken } from "./issueOneTimeToken.ts";
 
-export const scamHound = new Router()
+export const scamHound = new Router<AppState>()
   .post("/auth/register", authRegister)
   .delete("/auth/register/delete", deleteRegister)
   .use(isAuthorized)

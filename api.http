@@ -12,12 +12,8 @@ Content-Type: application/json
 ###
 DELETE {{HOST}}/api/auth/register/delete?certain=yes HTTP/1.1
 Content-Type: application/json
-
-{
-    "username": "gremlich@duck.com",
-    "password": "password"
-}
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhcGlLZXkiOiI1MGMyNzNiNS03NzdiLTQxMjYtYTAxOC1lMzhlM2ZhMjRkY2MiLCJpYXQiOjE3MTEzOTUwOTksImV4cCI6MTcxMzgxNDI5OSwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIn0.Q6G2gnhrDdPWujXj2MIu880tsTWQHUgwAw-q-z915BQnYPu6t1yYPMwS9tPGjgbKxjg4nsmuvBNjOCmajjI9Yg
 
 ###
 GET {{HOST}}/api/issue HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhcGlLZXkiOiJlNTllMzgzNC01NGM2LTQyMGMtODRhOC03MjdmOTFmZWI4MDEiLCJpYXQiOjE3MTEzMjc5ODksImV4cCI6MTcxMzc0NzE4OSwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIn0.32oIsXcXrNWJK9AbxyC2HMxAl-LRnBOCuRNjFTf00JGTwkZ3thGV5HgVEYqpBRBJKi6QwDSlRte5ZGu-Aaqlpg
+Authorization: Bearer 

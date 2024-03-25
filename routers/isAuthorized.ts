@@ -29,7 +29,7 @@ export const isAuthorized = async (
     new TextDecoder().decode(decodeBase64Url(payload))
   );
   const now = Temporal.Now.instant().epochSeconds;
-  
+
   if (decodedParsedPayload.exp < now) {
     ctx.response.status = 401;
     ctx.response.body = { error: "token expired" };
