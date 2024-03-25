@@ -9,8 +9,8 @@ import { issueOneTimeToken } from "./issueOneTimeToken.ts";
 
 export const scamHound = new Router<AppState>()
   .post("/auth/register", authRegister)
-  .delete("/auth/register/delete", deleteRegister)
   .use(isAuthorized)
+  .delete("/auth/register/delete", deleteRegister)
   .get("/token/issue", issueOneTimeToken)
   .post("/token/verify", async (ctx) => {
     // TODO: verify issued one time use tokens.
