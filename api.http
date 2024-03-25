@@ -10,8 +10,14 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{HOST}}/api/auth/delete?username=gremlich@duck.com HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhcGlLZXkiOiI4OTkyZDIzYy0zMTAzLTQzYTYtOGJiYi05MGI1ZjZlOTFmNDUiLCJpYXQiOjE3MTEzMjg1NDMsImV4cCI6MTcxMzc0Nzc0MywiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIn0.d8yZi5R1xvy63UXgU7URnIHaNHtJ_dNBuJuCmVajqsIYa2pA22OuX7Gy_te3kL1GMVN931lgC_5HlvU-dNsCXg
+DELETE {{HOST}}/api/auth/delete?certain=yes HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhcGlLZXkiOiJjYzc2MTc0Yy03M2M4LTQ3YzYtOWMyNS00ZTZiZmVjYjVjMGMiLCJpYXQiOjE3MTEzOTAzNjIsImV4cCI6MTcxMzgwOTU2MiwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIn0.m2jEDPuNTXruarR6N6S1ouUWubddFPK6oj_K5ypeNyQWO0Ptvy6YJMudROVaEZ7L2Kt0xkH6eE62XjF9KN1bqw
+
+{
+    "username": "gremlich@duck.com",
+    "password": "password"
+}
 
 ###
 GET {{HOST}}/api/issue HTTP/1.1

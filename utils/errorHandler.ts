@@ -25,19 +25,19 @@ export const errorHandler = (
 ) => {
   if (error instanceof z.ZodError) {
     ctx.response.status = 400;
-    ctx.response.body = { error: true, message: error.errors };
+    ctx.response.body = { error: true, data: error.errors };
     return;
   }
 
   if (error instanceof SyntaxError) {
     ctx.response.status = 400;
-    ctx.response.body = { error: true, message: error.message };
+    ctx.response.body = { error: true, data: error.message };
     return;
   }
 
   if (error instanceof AuthorizationError) {
     ctx.response.status = 401;
-    ctx.response.body = { error: true, message: error.message };
+    ctx.response.body = { error: true, data: error.message };
     return;
   }
 
@@ -48,5 +48,5 @@ export const errorHandler = (
   }
 
   ctx.response.status = 500;
-  ctx.response.body = { error: true, message: "Something went wrong" };
+  ctx.response.body = { error: true, data: "Something went wrong" };
 };

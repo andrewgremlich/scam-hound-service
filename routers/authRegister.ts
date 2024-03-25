@@ -6,12 +6,12 @@ import { genApiKey, hashPassword } from "~utils/register.ts";
 import { getUser, setRegister } from "~utils/kv.ts";
 import { inFourWeeksInSeconds } from "~utils/constants.ts";
 
-export const RegisterParams = z.object({
+export const RegisterBody = z.object({
   username: z.string(),
   password: z.string(),
 });
 
-export type RegisterParams = z.infer<typeof RegisterParams>;
+export type RegisterBody = z.infer<typeof RegisterBody>;
 
 export const authRegister = async (ctx: Context) => {
   if (!ctx.request.body.has) {
@@ -22,7 +22,7 @@ export const authRegister = async (ctx: Context) => {
 
   try {
     const rawbody = await ctx.request.body.json();
-    const { username, password } = RegisterParams.parse(rawbody);
+    const { username, password } = RegisterBody.parse(rawbody);
     const user = await getUser(username);
 
     if (user) {
