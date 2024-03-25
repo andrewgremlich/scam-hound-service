@@ -40,12 +40,6 @@ export const deleteRegister = async (ctx: Context) => {
 
     ctx.response.body = { username };
   } catch (e) {
-    if (e instanceof z.ZodError) {
-      ctx.response.status = 400;
-      ctx.response.body = { error: true, data: e.issues };
-      return;
-    }
-
     return errorHandler(ctx, e);
   }
 };
