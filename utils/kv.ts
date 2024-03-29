@@ -5,6 +5,7 @@ type UserStoreValue = {
   expirationDate: number;
   username: string;
   hashedPassword: string;
+  role: string[];
   apiKey: string;
 };
 

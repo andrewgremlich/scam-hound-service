@@ -15,7 +15,7 @@ export const isAuthorized = async (
     return;
   }
 
-  const token = authHeader.split(" ")[1];
+  const [_bearer, token] = authHeader.split(" ");
   const [header, payload, signature] = token.split(".");
   const isVerified = await verify([header, payload].join("."), signature);
 

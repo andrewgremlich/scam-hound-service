@@ -1,17 +1,16 @@
 import { hash, verify } from "scrypt";
 
 import { sign as JWTSign, verify as JWTVerify } from "./token.ts";
-import { inFourWeeksInSeconds } from "~utils/constants.ts";
-import { encodeBase64Url } from "base64UrlEncode";
 
-export const genApiKey = () => {
+export const genApiKey = ({ exp, role }: { exp: number; role: string[] }) => {
   const now = Temporal.Now.instant().epochSeconds;
 
   return JWTSign({
     apiKey: window.crypto.randomUUID(),
     iat: now,
-    exp: now + inFourWeeksInSeconds,
+    exp,
     iss: "scam-hound-service",
+    role,
   });
 };
 

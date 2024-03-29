@@ -35,14 +35,16 @@ export const authRegister = async (ctx: Context) => {
       return;
     }
 
-    const apiKey = await genApiKey();
     const usageCount = 0;
+    const role = ["user"];
     const expirationDate =
       Temporal.Now.instant().epochSeconds + inFourWeeksInSeconds;
+    const apiKey = await genApiKey({ exp: expirationDate, role });
 
     await setRegister(apiKey, {
       username,
       apiKey,
+      role,
       hashedPassword,
       usageCount,
       expirationDate,
