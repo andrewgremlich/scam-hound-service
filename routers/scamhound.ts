@@ -4,16 +4,14 @@ import { authRegister } from "./authRegister.ts";
 import { isAuthorized } from "./isAuthorized.ts";
 import { deleteRegister } from "./deleteRegister.ts";
 import { issueOneTimeToken } from "./issueOneTimeToken.ts";
+import { verifyOneTimeToken } from "./verifyOneTimeToken.ts";
 
 export const scamHound = new Router()
   .post("/auth/register", authRegister)
   .use(isAuthorized)
   .delete("/auth/register/delete", deleteRegister)
-  .get("/token/issue", issueOneTimeToken)
-  .post("/token/verify", async (_ctx) => {
-    // TODO: verify issued one time use tokens.
-    // TODO: increment counter on user.
-  });
+  .get("/token/oneTime/issue", issueOneTimeToken)
+  .post("/token/oneTime/verify", verifyOneTimeToken);
 
 // --- These should be a different endpoint
 // TODO: a Deno cron job to clean  out all tokens that have been expired.
