@@ -16,5 +16,6 @@ export const scamHound = new Router()
   });
 
 // --- These should be a different endpoint
+// TODO: a Deno cron job to clean  out all tokens that have been expired.
 // TODO: call OPEN AI with one time use tokens and text to check if it's scam. increment usagecount on user.
 // MAYBE: call scam domain APIs (check notes) to see see if I can call them.

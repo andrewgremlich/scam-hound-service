@@ -10,7 +10,6 @@ export const genApiKey = ({ exp, role }: { exp: number; role: string[] }) => {
   const now = Temporal.Now.instant().epochSeconds;
 
   return JWTSign({
-    apiKey: window.crypto.randomUUID(),
     iat: now,
     exp,
     iss: issuer,
@@ -18,13 +17,10 @@ export const genApiKey = ({ exp, role }: { exp: number; role: string[] }) => {
   });
 };
 
-export const genToken = ({ exp }: { exp: number }) => {
-  const now = Temporal.Now.instant().epochSeconds;
-
+export const genToken = (props: { exp: number; iat: number }) => {
   return JWTSign({
-    iat: now,
-    exp,
     iss: issuer,
+    ...props,
   });
 };
 

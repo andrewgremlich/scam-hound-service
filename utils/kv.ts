@@ -11,6 +11,17 @@ type UserStoreValue = {
 
 const kv = await Deno.openKv();
 
+export const setToken = async (
+  token: string,
+  props: { exp: number; iat: number }
+) => {
+  await kv.set([token], props);
+};
+
+export const getToken = async (token: string) => {
+  return await kv.get([token]);
+};
+
 export const setKey = async (label: string, key: JsonWebKey) => {
   await kv.set([label], key);
 };
