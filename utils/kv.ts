@@ -3,8 +3,9 @@ import { AuthorizationError } from "~utils/errorHandler.ts";
 type UserStoreValue = {
   usageCount: number;
   expirationDate: number;
-  hashedUsername: string;
+  username: string;
   hashedPassword: string;
+  apiKey: string;
 };
 
 const kv = await Deno.openKv();
@@ -27,7 +28,10 @@ export const getKey = async (
 };
 
 export const getUser = async (username: string): Promise<UserStoreValue> => {
-  return (await kv.get([username])).value as UserStoreValue;
+  const user = await kv.get([username]);
+  const userValue = user.value as UserStoreValue;
+
+  return userValue;
 };
 
 export const getUserById = async (id: string): Promise<UserStoreValue> => {
@@ -39,14 +43,14 @@ export const setRegister = async (
   tokenRequirements: UserStoreValue
 ) => {
   const primaryKey = [id];
-  const byHashedUsername = [tokenRequirements.hashedUsername];
+  const byUsername = [tokenRequirements.username];
 
   const res = await kv
     .atomic()
     .check({ key: primaryKey, versionstamp: null })
-    .check({ key: byHashedUsername, versionstamp: null })
+    .check({ key: byUsername, versionstamp: null })
     .set(primaryKey, tokenRequirements)
-    .set(byHashedUsername, tokenRequirements)
+    .set(byUsername, tokenRequirements)
     .commit();
 
   if (!res.ok) {

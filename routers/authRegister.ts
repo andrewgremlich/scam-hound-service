@@ -24,11 +24,15 @@ export const authRegister = async (ctx: Context) => {
     const rawbody = await ctx.request.body.json();
     const { username, password } = RegisterBody.parse(rawbody);
     const hashedPassword = hashData(password);
-    const hashedUsername = hashData(username);
-    const user = await getUser(hashedUsername);
+    const user = await getUser(username);
 
     if (user) {
-      throw new AuthorizationError("User already exists.");
+      ctx.response.headers.set("Authorization", `Bearer ${user.apiKey}`);
+      ctx.response.body = {
+        usageCount: user.usageCount,
+        expirationDate: user.expirationDate,
+      };
+      return;
     }
 
     const apiKey = await genApiKey();
@@ -37,7 +41,8 @@ export const authRegister = async (ctx: Context) => {
       Temporal.Now.instant().epochSeconds + inFourWeeksInSeconds;
 
     await setRegister(apiKey, {
-      hashedUsername,
+      username,
+      apiKey,
       hashedPassword,
       usageCount,
       expirationDate,
