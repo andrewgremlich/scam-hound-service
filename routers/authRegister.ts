@@ -1,8 +1,8 @@
 import { Context } from "Oak";
 import { z } from "zod";
 
-import { AuthorizationError, errorHandler } from "~utils/errorHandler.ts";
-import { genApiKey, hashData, hashedId } from "~utils/register.ts";
+import { errorHandler } from "~utils/errorHandler.ts";
+import { genApiKey, hashData } from "~utils/register.ts";
 import { getUser, setRegister } from "~utils/kv.ts";
 import { inFourWeeksInSeconds } from "~utils/constants.ts";
 

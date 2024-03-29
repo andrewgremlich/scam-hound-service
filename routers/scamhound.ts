@@ -12,6 +12,7 @@ export const scamHound = new Router()
   .get("/token/issue", issueOneTimeToken)
   .post("/token/verify", async (_ctx) => {
     // TODO: verify issued one time use tokens.
+    // TODO: increment counter on user.
   });
 
 // --- These should be a different endpoint
