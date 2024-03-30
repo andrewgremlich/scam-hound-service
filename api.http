@@ -14,11 +14,11 @@ DELETE {{HOST}}/api/auth/register/delete?certain=yes HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE4MDY2MDIsImV4cCI6MTcxNDIyNTgwMiwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZSI6WyJ1c2VyIl19.fXWMIuwjlZD5bmSbz0UL9Em3ywKMXbq6DIxVPhf6eDSiEJ4IlBZ6nAF2OwZ5nq4P7UDrYKGtruEgh3sPPo2A6A
 
 ###
-GET {{HOST}}/api/token/oneTime/issue HTTP/1.1
+GET {{HOST}}/api/token/issue HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE4MDg1MDUsImV4cCI6MTcxNDIyNzcwNSwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZSI6WyJ1c2VyIl19.DRoQeGo7vpVI2TkPYwXh_6au7aDaYDmDps4vbndqbiAT09VMl5XYYd9RDN25o-LPZqkKiP-N1PggbbhjGO-Bsg
 
 ###
-POST {{HOST}}/api/token/oneTime/verify HTTP/1.1
+POST {{HOST}}/api/token/verify?certain=yes HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE4MDY2MDIsImV4cCI6MTcxNDIyNTgwMiwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZSI6WyJ1c2VyIl19.fXWMIuwjlZD5bmSbz0UL9Em3ywKMXbq6DIxVPhf6eDSiEJ4IlBZ6nAF2OwZ5nq4P7UDrYKGtruEgh3sPPo2A6A
 
