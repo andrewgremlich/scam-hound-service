@@ -6,14 +6,14 @@ import { AuthorizationError } from "./errorHandler.ts";
 
 const issuer = "scam-hound-service";
 
-export const genApiKey = ({ exp, role }: { exp: number; role: string[] }) => {
+export const genApiKey = ({ exp, roles }: { exp: number; roles: string[] }) => {
   const now = Temporal.Now.instant().epochSeconds;
 
   return JWTSign({
     iat: now,
     exp,
     iss: issuer,
-    role,
+    roles,
   });
 };
 

@@ -1,9 +1,8 @@
 type UserStoreValue = {
   usageCount: number;
-  expirationDate: number;
   username: string;
   hashedPassword: string;
-  role: string[];
+  roles: string[];
   apiKey: string;
 };
 
