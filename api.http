@@ -11,7 +11,7 @@ Content-Type: application/json
 
 ###
 DELETE {{HOST}}/api/auth/register/delete?certain=yes HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE3NjkyMTcsImV4cCI6MTcxNDE4ODQxNywiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZSI6WyJ1c2VyIl19.pYk1h9cPHfYlPA8nigWZ7M100CUzw2vzP2VP5H-0oB2pKx9DmYTXXGMr8BH6GsoMVKortiujCBXmkf1EnnZ0gA
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE3NzE2NDUsImV4cCI6MTcxNDE5MDg0NSwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZSI6WyJ1c2VyIl19.gd5h0cT2wAWxnpn8X6xFovBShBN5uF62n4E4V1FmQ6O0Fk7sCOOHxk4EjRFCqwC_iSiQytgEL_0sbvy1HbiHTA
 
 ###
 GET {{HOST}}/api/token/oneTime/issue HTTP/1.1

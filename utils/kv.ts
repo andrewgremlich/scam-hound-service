@@ -70,6 +70,13 @@ export const setRegister = async (tokenRequirements: UserStoreValue) => {
   return storedUser;
 };
 
-export const removeRegister = async ({ apiKey }: { apiKey: string }) => {
-  return await kv.delete(["apiKey", apiKey]);
+export const removeRegister = async ({
+  apiKey,
+  username,
+}: {
+  apiKey: string;
+  username: string;
+}) => {
+  await kv.delete(["username", username]);
+  await kv.delete(["apiKey", apiKey]);
 };

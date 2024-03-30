@@ -19,16 +19,14 @@ export const deleteRegister = async (ctx: Context) => {
     );
 
     const authHeader = ctx.request.headers.get("Authorization");
-    const token = authHeader!.split(" ")[1];
-    const user = await getUserById(token);
-
-    console.log(user, token);
+    const apiKey = authHeader!.split(" ")[1];
+    const user = await getUserById(apiKey);
 
     if (!user) {
       throw new AuthorizationError("User not found");
     }
 
-    await removeRegister({ token, username: user.username });
+    await removeRegister({ apiKey, username: user.username });
 
     ctx.response.body = { data: "user deleted" };
   } catch (e) {
