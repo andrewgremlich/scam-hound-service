@@ -1,10 +1,10 @@
-import { getKey, setKey } from "./kv.ts";
+import { getEncryptKeyFromStore, setEncryptKeyInStore } from "./kv.ts";
 
 const KVEncryptKey = "encryptKey";
 const KVSigningKey = "signingKey";
 
 export const getEncryptKey = async () => {
-  const storedKey = await getKey(KVEncryptKey);
+  const storedKey = await getEncryptKeyFromStore(KVEncryptKey);
 
   if (!storedKey) {
     const generatedKey = await window.crypto.subtle.generateKey(
@@ -20,7 +20,7 @@ export const getEncryptKey = async () => {
       generatedKey,
     );
 
-    await setKey(KVEncryptKey, exportedKey);
+    await setEncryptKeyInStore(KVEncryptKey, exportedKey);
 
     return generatedKey;
   }
@@ -39,7 +39,7 @@ export const getEncryptKey = async () => {
 };
 
 export const getSigningKey = async () => {
-  const storedKey = await getKey(KVSigningKey);
+  const storedKey = await getEncryptKeyFromStore(KVSigningKey);
 
   if (!storedKey) {
     const generatedKey = await window.crypto.subtle.generateKey(
@@ -55,7 +55,7 @@ export const getSigningKey = async () => {
       generatedKey,
     );
 
-    await setKey(KVSigningKey, exportedKey);
+    await setEncryptKeyInStore(KVSigningKey, exportedKey);
 
     return generatedKey;
   }

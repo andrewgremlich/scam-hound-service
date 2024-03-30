@@ -22,11 +22,11 @@ export const getToken = async (token: string) => {
   return await kv.get([token]);
 };
 
-export const setKey = async (label: string, key: JsonWebKey) => {
+export const setEncryptKeyInStore = async (label: string, key: JsonWebKey) => {
   await kv.set([label], key);
 };
 
-export const getKey = async (
+export const getEncryptKeyFromStore = async (
   label: string
 ): Promise<JsonWebKey | undefined> => {
   const privateKey = await kv.get<JsonWebKey>([label]);
@@ -72,6 +72,12 @@ export const setRegister = async (
   }
 };
 
-export const removeRegisterById = async (id: string) => {
-  await kv.delete([id]);
+export const removeRegister = async ({
+  token,
+  username,
+}: {
+  token: string;
+  username: string;
+}) => {
+  return await Promise.all([kv.delete([token]), kv.delete([username])]);
 };

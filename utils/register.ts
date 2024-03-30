@@ -24,6 +24,12 @@ export const genToken = (props: { exp: number; iat: number }) => {
   });
 };
 
+export const decodeToken = (token: string) => {
+  const [_header, payload, _signature] = token.split(".");
+
+  return JSON.parse(new TextDecoder().decode(decodeBase64Url(payload)));
+};
+
 export const verifyToken = async (token: string) => {
   const [header, payload, signature] = token.split(".");
   const isVerified = await JWTVerify([header, payload].join("."), signature);

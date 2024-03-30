@@ -20,6 +20,8 @@ export const authRegister = async (ctx: Context) => {
     const hashedPassword = hashData(password);
     const user = await getUser(username);
 
+    console.log("user", user);
+
     if (user) {
       const isPasswordMatch = verifyHash(password, user.hashedPassword);
 

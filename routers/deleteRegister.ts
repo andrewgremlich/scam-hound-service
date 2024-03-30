@@ -1,7 +1,7 @@
 import { Context } from "Oak";
 import { z } from "zod";
 
-import { removeRegisterById, getUserById } from "~utils/kv.ts";
+import { removeRegister, getUserById } from "~utils/kv.ts";
 import { errorHandler, AuthorizationError } from "~utils/errorHandler.ts";
 
 export const DeleteRegisterParams = z.object({
@@ -22,11 +22,13 @@ export const deleteRegister = async (ctx: Context) => {
     const token = authHeader!.split(" ")[1];
     const user = await getUserById(token);
 
+    console.log(user, token);
+
     if (!user) {
       throw new AuthorizationError("User not found");
     }
 
-    await removeRegisterById(token);
+    await removeRegister({ token, username: user.username });
 
     ctx.response.body = { data: "user deleted" };
   } catch (e) {
