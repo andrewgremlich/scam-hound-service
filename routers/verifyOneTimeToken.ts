@@ -14,7 +14,12 @@ export type VerifyTokenBody = z.infer<typeof VerifyTokenBody>;
 export const verifyOneTimeToken = async (ctx: Context) => {
   const rawbody = await ctx.request.body.json();
   const { token: oneTimeUseToken } = VerifyTokenBody.parse(rawbody);
+  const authHeader = ctx.request.headers.get("Authorization");
+  const [_bearer, apiKey] = authHeader?.split(" ") ?? [];
+  const user = await getUserById(apiKey);
   const checkForUse = await getToken(oneTimeUseToken);
+
+  console.log(user, checkForUse);
 
   if (checkForUse.used) {
     ctx.response.body = { verified: false };
@@ -30,15 +35,12 @@ export const verifyOneTimeToken = async (ctx: Context) => {
 
   await setToken(oneTimeUseToken, { ...checkForUse, used: true });
 
-  // const authHeader = ctx.request.headers.get("Authorization");
-  // const [_bearer, apiKey] = authHeader?.split(" ");
+  user.usageCount += 1;
+  await setRegister(user);
 
-  // const user = await getUserById(apiKey);
-  // user.usageCount += 1;
-
-  // await setRegister(apiKey, user);
-
-  // TODO: increment counter on user and set in KV.
-
-  ctx.response.body = { verified };
+  ctx.response.body = {
+    usageCount: user.usageCount,
+    verified: true,
+    expirationDate: user.expirationDate,
+  };
 };
