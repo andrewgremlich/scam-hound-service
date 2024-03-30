@@ -2,7 +2,7 @@ import { Context } from "Oak";
 import { z } from "zod";
 
 import { errorHandler } from "~utils/errorHandler.ts";
-import { genApiKey, hashData } from "~utils/register.ts";
+import { genApiKey, hashData, verifyHash } from "~utils/register.ts";
 import { getUser, setRegister } from "~utils/kv.ts";
 import { inFourWeeksInSeconds } from "~utils/constants.ts";
 
@@ -14,12 +14,6 @@ export const RegisterBody = z.object({
 export type RegisterBody = z.infer<typeof RegisterBody>;
 
 export const authRegister = async (ctx: Context) => {
-  if (!ctx.request.body.has) {
-    ctx.response.status = 400;
-    ctx.response.body = { error: "missing body" };
-    return;
-  }
-
   try {
     const rawbody = await ctx.request.body.json();
     const { username, password } = RegisterBody.parse(rawbody);
@@ -27,6 +21,14 @@ export const authRegister = async (ctx: Context) => {
     const user = await getUser(username);
 
     if (user) {
+      const isPasswordMatch = verifyHash(password, user.hashedPassword);
+
+      if (!isPasswordMatch) {
+        ctx.response.status = 401;
+        ctx.response.body = { error: "unauthorized" };
+        return;
+      }
+
       ctx.response.headers.set("Authorization", `Bearer ${user.apiKey}`);
       ctx.response.body = {
         usageCount: user.usageCount,

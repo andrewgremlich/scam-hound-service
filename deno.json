@@ -1,11 +1,13 @@
 {
   "tasks": {
-    "start": "deno run --allow-net --allow-env --allow-read --unstable-temporal --unstable-kv index.ts"
+    "start": "deno run --allow-net --allow-env --allow-read --unstable-temporal --unstable-kv index.ts",
+    "test": "deno test --allow-net --unstable-kv"
   },
   "imports": {
     "base64UrlEncode": "https://deno.land/std@0.205.0/encoding/base64url.ts",
     "dotenv": "https://deno.land/std@0.220.1/dotenv/load.ts",
     "zod": "https://deno.land/x/zod@v3.16.1/mod.ts",
+    "assert": "https://deno.land/std@0.221.0/assert/mod.ts",
     "Oak": "jsr:@oak/oak@14",
     "scrypt": "jsr:@denorg/scrypt@4.3.4",
     "~utils/": "./utils/"

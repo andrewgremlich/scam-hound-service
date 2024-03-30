@@ -27,7 +27,5 @@ export const verifyOneTimeToken = async (ctx: Context) => {
   const { token } = VerifyTokenBody.parse(rawbody);
   const verified = await verifyToken(token);
 
-  console.log(verified);
-
-  ctx.response.body = "hello world";
+  ctx.response.body = { verified };
 };

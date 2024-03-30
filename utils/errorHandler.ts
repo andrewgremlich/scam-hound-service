@@ -1,4 +1,5 @@
-import { Context } from "Oak";
+import { Context, isHttpError } from "Oak";
+
 import { z } from "zod";
 
 export class AuthorizationError extends Error {
@@ -43,6 +44,12 @@ export const errorHandler = (
 
   if (error instanceof TypeError) {
     ctx.response.status = 400;
+    ctx.response.body = { error: true, data: error.message };
+    return;
+  }
+
+  if (isHttpError(error)) {
+    ctx.response.status = error.status;
     ctx.response.body = { error: true, data: error.message };
     return;
   }
