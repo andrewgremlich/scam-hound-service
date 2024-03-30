@@ -1,5 +1,3 @@
-import { AuthorizationError } from "~utils/errorHandler.ts";
-
 type UserStoreValue = {
   usageCount: number;
   expirationDate: number;
@@ -16,6 +14,15 @@ type TokenStoreValue = {
 };
 
 const kv = await Deno.openKv();
+
+export const listTokens = async () => {
+  const keys = await kv.list<TokenStoreValue>({ prefix: ["tokenStoreValue"] });
+  return keys;
+};
+
+export const deleteToken = async (token: string) => {
+  await kv.delete(["tokenStoreValue", token]);
+};
 
 export const setToken = async (token: string, props: TokenStoreValue) => {
   await kv.set(["tokenStoreValue", token], props);

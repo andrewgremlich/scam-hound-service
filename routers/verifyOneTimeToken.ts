@@ -19,8 +19,6 @@ export const verifyOneTimeToken = async (ctx: Context) => {
   const user = await getUserById(apiKey);
   const checkForUse = await getToken(oneTimeUseToken);
 
-  console.log(user, checkForUse);
-
   if (checkForUse.used) {
     ctx.response.body = { verified: false };
     return;

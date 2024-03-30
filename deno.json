@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "start": "deno run --allow-net --allow-env --allow-read --unstable-temporal --unstable-kv index.ts",
+    "start": "deno run --allow-net --allow-env --allow-read --unstable-temporal --unstable-kv --unstable-cron index.ts",
     "test": "deno test --allow-net --unstable-kv"
   },
   "imports": {
