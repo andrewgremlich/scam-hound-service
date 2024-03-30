@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { inFourWeeksInSeconds } from "~utils/constants.ts";
 import { genToken } from "~utils/register.ts";
-import { setToken } from "~utils/kv.ts";
+import { setToken, getUserById } from "~utils/kv.ts";
 import { errorHandler } from "~utils/errorHandler.ts";
 
 export const IssueTokenParams = z.object({
@@ -32,6 +32,10 @@ export const issueToken = async (ctx: Context) => {
     );
     const tokens = [];
 
+    const authHeader = ctx.request.headers.get("Authorization");
+    const apiKey = authHeader!.split(" ")[1];
+    const user = await getUserById(apiKey);
+
     for (let i = 0; i < numberToIssue; i++) {
       const expirationDate =
         Temporal.Now.instant().epochSeconds + inFourWeeksInSeconds;
@@ -42,6 +46,7 @@ export const issueToken = async (ctx: Context) => {
         used: false,
         itemInSet: i + 1,
         numberInSet: numberToIssue,
+        owner: user.username,
         value: 0,
       };
       const token = await genToken(JWTPayloadBit);
