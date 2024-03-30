@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { errorHandler } from "~utils/errorHandler.ts";
 import { genApiKey, hashData, verifyHash } from "~utils/register.ts";
-import { getUser, setRegister } from "~utils/kv.ts";
+import { getUserByUsername, setRegister } from "~utils/kv.ts";
 import { inFourWeeksInSeconds } from "~utils/constants.ts";
 
 export const RegisterBody = z.object({
@@ -18,11 +18,9 @@ export const authRegister = async (ctx: Context) => {
     const rawbody = await ctx.request.body.json();
     const { username, password } = RegisterBody.parse(rawbody);
     const hashedPassword = hashData(password);
-    const user = await getUser(username);
+    const user = await getUserByUsername(username);
 
-    console.log("user", user);
-
-    if (user) {
+    if (user.apiKey) {
       const isPasswordMatch = verifyHash(password, user.hashedPassword);
 
       if (!isPasswordMatch) {
@@ -45,7 +43,7 @@ export const authRegister = async (ctx: Context) => {
       Temporal.Now.instant().epochSeconds + inFourWeeksInSeconds;
     const apiKey = await genApiKey({ exp: expirationDate, role });
 
-    await setRegister(apiKey, {
+    await setRegister({
       username,
       apiKey,
       role,

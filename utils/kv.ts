@@ -9,27 +9,30 @@ type UserStoreValue = {
   apiKey: string;
 };
 
-const kv = await Deno.openKv();
-
-export const setToken = async (
-  token: string,
-  props: { exp: number; iat: number }
-) => {
-  await kv.set([token], props);
+type TokenStoreValue = {
+  exp: number;
+  iat: number;
+  used: boolean;
 };
 
-export const getToken = async (token: string) => {
-  return await kv.get([token]);
+const kv = await Deno.openKv();
+
+export const setToken = async (token: string, props: TokenStoreValue) => {
+  await kv.set(["tokenStoreValue", token], props);
+};
+
+export const getToken = async (token: string): Promise<TokenStoreValue> => {
+  return (await kv.get(["tokenStoreValue", token])).value as TokenStoreValue;
 };
 
 export const setEncryptKeyInStore = async (label: string, key: JsonWebKey) => {
-  await kv.set([label], key);
+  await kv.set(["encryptKeyInStore", label], key);
 };
 
 export const getEncryptKeyFromStore = async (
   label: string
 ): Promise<JsonWebKey | undefined> => {
-  const privateKey = await kv.get<JsonWebKey>([label]);
+  const privateKey = await kv.get<JsonWebKey>(["encryptKeyInStore", label]);
 
   if (!privateKey.value) {
     console.error(`No key found for ${label}`);
@@ -39,45 +42,34 @@ export const getEncryptKeyFromStore = async (
   return privateKey.value;
 };
 
-export const getUser = async (username: string): Promise<UserStoreValue> => {
-  const user = await kv.get([username]);
-  const userValue = user.value as UserStoreValue;
+export const getUserByUsername = async (
+  username: string
+): Promise<UserStoreValue> => {
+  const user1 = await kv.get(["username", username]);
 
-  return userValue;
-};
-
-export const getUserById = async (id: string): Promise<UserStoreValue> => {
-  return (await kv.get([id])).value as UserStoreValue;
-};
-
-export const setRegister = async (
-  id: string,
-  tokenRequirements: UserStoreValue
-) => {
-  const primaryKey = [id];
-  const byUsername = [tokenRequirements.username];
-
-  const res = await kv
-    .atomic()
-    .check({ key: primaryKey, versionstamp: null })
-    .check({ key: byUsername, versionstamp: null })
-    .set(primaryKey, tokenRequirements)
-    .set(byUsername, tokenRequirements)
-    .commit();
-
-  if (!res.ok) {
-    throw new AuthorizationError(
-      "User with username and password already exists."
-    );
+  if (!user1.value) {
+    return {} as UserStoreValue;
   }
+
+  const user2 = await kv.get(user1.value as string[]);
+
+  return user2.value as UserStoreValue;
 };
 
-export const removeRegister = async ({
-  token,
-  username,
-}: {
-  token: string;
-  username: string;
-}) => {
-  return await Promise.all([kv.delete([token]), kv.delete([username])]);
+export const getUserById = async (apiKey: string): Promise<UserStoreValue> => {
+  return (await kv.get(["apiKey", apiKey])).value as UserStoreValue;
+};
+
+export const setRegister = async (tokenRequirements: UserStoreValue) => {
+  const primaryKey = ["apiKey", tokenRequirements.apiKey];
+  const secondaryKey = ["username", tokenRequirements.username];
+
+  const storedUser = await kv.set(primaryKey, tokenRequirements);
+  await kv.set(secondaryKey, primaryKey);
+
+  return storedUser;
+};
+
+export const removeRegister = async ({ apiKey }: { apiKey: string }) => {
+  return await kv.delete(["apiKey", apiKey]);
 };
