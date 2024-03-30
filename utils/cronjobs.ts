@@ -4,9 +4,9 @@ export const cleanUpExpiredTokens = async () => {
   const tokens = await listTokens();
 
   for await (const entry of tokens) {
-    const expirationDate = Temporal.Now.instant().epochSeconds;
+    const now = Temporal.Now.instant().epochSeconds;
 
-    if (entry.value.exp < expirationDate) {
+    if (entry.value.exp < now) {
       await deleteToken(entry.key[1] as string);
     }
   }
