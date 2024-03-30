@@ -14,7 +14,7 @@ export type VerifyTokenBody = z.infer<typeof VerifyTokenBody>;
 
 export const VerifyTokenParams = z.object({
   certain: z.string().refine((v) => v === "yes", {
-    message: "You must be certain to delete your account.",
+    message: "You must be certain to use this token. It is irreversible.",
   }),
 });
 
@@ -53,7 +53,6 @@ export const verifyTokenAndUse = async (ctx: Context) => {
     ctx.response.body = {
       usageCount: user.usageCount,
       verified: true,
-      expirationDate: user.expirationDate,
     };
   } catch (err) {
     return errorHandler(ctx, err);
