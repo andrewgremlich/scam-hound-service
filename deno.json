@@ -1,7 +1,8 @@
 {
   "tasks": {
     "start": "deno run --allow-net --allow-env --allow-read --unstable-temporal --unstable-kv --unstable-cron index.ts",
-    "test": "deno test --allow-net --unstable-kv"
+    "test": "deno test --allow-net --unstable-kv",
+    "doc": "deno doc --html --name='Scam Hound' --output=./documentation ./routers/*.ts"
   },
   "imports": {
     "base64UrlEncode": "https://deno.land/std@0.205.0/encoding/base64url.ts",

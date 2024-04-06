@@ -24,6 +24,6 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-    "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzY2FtLWhvdW5kLXNlcnZpY2UiLCJleHAiOjE3MTQ3ODg1MTQsImlhdCI6MTcxMjM2OTMxNCwidXNlZCI6ZmFsc2UsIml0ZW1JblNldCI6MSwibnVtYmVySW5TZXQiOjEsIm93bmVyIjoiZ3JlbWxpY2hAZHVjay5jb20iLCJ2YWx1ZSI6MH0.Ka7eC6Ken0AnYVhU1kwMbX5AEckjYhF3Rkcs9f7JS1m4_uts4kOtWh0lBI74eAed13eBJIt3lbrO7a599Joq2Q",
+    "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzY2FtLWhvdW5kLXNlcnZpY2UiLCJleHAiOjE3MTQ3OTA2MjUsImlhdCI6MTcxMjM3MTQyNSwidXNlZCI6ZmFsc2UsIml0ZW1JblNldCI6MSwibnVtYmVySW5TZXQiOjEsIm93bmVyIjoiZ3JlbWxpY2hAZHVjay5jb20iLCJ2YWx1ZSI6MH0.WwiDR0pXQqicKRSp7p2MlFPZbqMeyVwjbH7L82JONiyI3DwKaiQoROi0qFwyT7U_9vzavej2DX3xvsu7cXvfPA",
     "textScamCheck": "Congratulations! We are delighted to inform you that you have emerged as the lucky winner of our prestigious Global Lottery Jackpot. After a rigorous selection process, your email address was chosen as one of the fortunate winners in our random draw."
 }

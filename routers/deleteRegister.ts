@@ -13,6 +13,12 @@ export const DeleteRegisterParams = z.object({
 
 export type DeleteRegisterParams = z.infer<typeof DeleteRegisterParams>;
 
+/**
+ * 
+ * @param {string} tokenToDelete the token to delete the user
+ * @param {'yes'|'no'|undefined} certain the user is certain to delete the user
+ * @returns a confirmation that the user is deleted
+ */
 export const deleteRegister = async (ctx: Context) => {
   try {
     const { tokenToDelete } = DeleteRegisterParams.parse(

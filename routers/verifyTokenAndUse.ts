@@ -22,6 +22,12 @@ export const VerifyTokenParams = z.object({
 
 export type VerifyTokenParams = z.infer<typeof VerifyTokenParams>;
 
+/**
+ *
+ * @param {string} token the token to verify
+ * @param {string} textScamCheck the text to check for scam
+ * @returns {{usageCount: number, verified: boolean, message: string}} the usage count, verified status, and the message from the AI
+ */
 export const verifyTokenAndUse = async (ctx: Context) => {
   try {
     VerifyTokenParams.parse(

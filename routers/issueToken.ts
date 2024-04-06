@@ -23,6 +23,12 @@ export const IssueTokenParams = z.object({
 
 export type IssueTokenParams = z.infer<typeof IssueTokenParams>;
 
+/**
+ * 
+ * @param {number} numberToIssue the number of tokens to issue
+ * @param {'yes'|'no'|undefined} certain the user is certain to issue the tokens
+ * @returns {{ tokens: string[] }} object with the name 'tokens' and the property 'tokens' with the array of tokens
+ */
 export const issueToken = async (ctx: Context) => {
   // TODO: integrate with payment gateway.
 

@@ -13,6 +13,12 @@ export const RegisterBody = z.object({
 
 export type RegisterBody = z.infer<typeof RegisterBody>;
 
+/**
+ * Register user to use the scam hound system
+ * @param {string} username something to identiy the user
+ * @param {string} password something that only the user should know
+ * @returns Authorization header with the JWT token and returns the usage count in the body
+ */
 export const authRegister = async (ctx: Context) => {
   try {
     const rawbody = await ctx.request.body.json();
