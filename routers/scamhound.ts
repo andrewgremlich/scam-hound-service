@@ -11,9 +11,10 @@ export const scamHound = new Router()
   .use(isAuthorized)
   .delete("/auth/register/delete", deleteRegister)
   .get("/token/issue", issueToken)
-  .post("/token/verify", verifyTokenAndUse);
+  .post("/scam-check/ai-query", verifyTokenAndUse);
 
-// --- These should be a different endpoint
-// TODO: call OPEN AI with one time use tokens and text to check if it's scam. increment usagecount on user.
+  
+  // --- These should be a different endpoint
+  // TODO?: another endpoint querying the scam domain APIs?
 // MAYBE: a cron job to back up to turso?
 // MAYBE: call scam domain APIs (check notes) to see see if I can call them.

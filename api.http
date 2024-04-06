@@ -1,4 +1,5 @@
 @HOST=http://localhost:8000
+@TOKEN=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTIzNjg5NDQsImV4cCI6MTcxNDc4ODE0NCwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZXMiOlsidXNlciJdfQ.U1tinUjtKO00_t7BAHUlHR9FfHtswWjmJbF9poeqV03MpUdFnVy6GtGhJs9_CXfmy06c_o5bRX_jqy8PUFJYtw
 
 ###
 POST {{HOST}}/api/auth/register HTTP/1.1
@@ -11,18 +12,18 @@ Content-Type: application/json
 
 ###
 DELETE {{HOST}}/api/auth/register/delete?certain=yes&tokenToDelete=someothertoken HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE4MjQzMDUsImV4cCI6MTcxNDI0MzUwNSwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZSI6WyJ1c2VyIl19.2-6qm1qiLcuBLttVi-uXL8x6PaN_p0tT-g-ASFdRBrvI-8ipjuknEVbacKjLTGX4mKO2v1RnoHneAbh7E_ieOA
+Authorization: Bearer {{TOKEN}}
 
 ###
 GET {{HOST}}/api/token/issue?numberToIssue=1&certain=yes HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE4MjU5NzQsImV4cCI6MTcxNDI0NTE3NCwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZXMiOlsidXNlciJdfQ.UBCCzFPDYayS9dnYbr--3pxJDrKJy2ohWuube2kgTESvYbdiudh3GCdivmLz_A__yuAh8gY0s7ujhrO72sOnwA
+Authorization: Bearer {{TOKEN}}
 
 ###
-POST {{HOST}}/api/token/verify?certain=yes HTTP/1.1
+POST {{HOST}}/api/scam-check/ai-query?certain=yes HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE4MjU5NzQsImV4cCI6MTcxNDI0NTE3NCwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZXMiOlsidXNlciJdfQ.UBCCzFPDYayS9dnYbr--3pxJDrKJy2ohWuube2kgTESvYbdiudh3GCdivmLz_A__yuAh8gY0s7ujhrO72sOnwA
+Authorization: Bearer {{TOKEN}}
 
 {
-    "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzY2FtLWhvdW5kLXNlcnZpY2UiLCJleHAiOjE3MTQyNDUxODQsImlhdCI6MTcxMTgyNTk4NCwidXNlZCI6ZmFsc2UsIml0ZW1JblNldCI6MSwibnVtYmVySW5TZXQiOjEwLCJ2YWx1ZSI6MH0.VlJS-Rgyd6PLBFcQJKKCPYi1E7qV0qLkV6cQ0MMh6Ij1Y5Zi61r5-m9uAwzZU86fJwcBYxP0qOdIzLC9_70d2w",
+    "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzY2FtLWhvdW5kLXNlcnZpY2UiLCJleHAiOjE3MTQ3ODg1MTQsImlhdCI6MTcxMjM2OTMxNCwidXNlZCI6ZmFsc2UsIml0ZW1JblNldCI6MSwibnVtYmVySW5TZXQiOjEsIm93bmVyIjoiZ3JlbWxpY2hAZHVjay5jb20iLCJ2YWx1ZSI6MH0.Ka7eC6Ken0AnYVhU1kwMbX5AEckjYhF3Rkcs9f7JS1m4_uts4kOtWh0lBI74eAed13eBJIt3lbrO7a599Joq2Q",
     "textScamCheck": "Congratulations! We are delighted to inform you that you have emerged as the lucky winner of our prestigious Global Lottery Jackpot. After a rigorous selection process, your email address was chosen as one of the fortunate winners in our random draw."
 }

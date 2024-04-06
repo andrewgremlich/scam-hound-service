@@ -58,8 +58,6 @@ export const verifyTokenAndUse = async (ctx: Context) => {
 
     const queryAi = await checkTextForScam(textScamCheck);
 
-    console.log(queryAi);
-
     ctx.response.body = {
       usageCount: user.usageCount,
       verified: true,
