@@ -3,9 +3,9 @@ import "dotenv";
 
 import { scamHound } from "./routers/scamhound.ts";
 
-import { cleanUpExpiredTokens } from "./utils/cronjobs.ts";
-
-Deno.cron("Clean up expired tokens weekly", "15 4 * * 6", cleanUpExpiredTokens);
+// NOTE: this is probably not needed due to Deno KV having TTL
+// import { cleanUpExpiredTokens } from "./utils/cronjobs.ts";
+// Deno.cron("Clean up expired tokens weekly", "15 4 * * 6", cleanUpExpiredTokens);
 
 const api = new Router().use(
   "/api",

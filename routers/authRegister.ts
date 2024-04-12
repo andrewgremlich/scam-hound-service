@@ -4,7 +4,10 @@ import { z } from "zod";
 import { errorHandler } from "~utils/errorHandler.ts";
 import { genApiKey, hashData, verifyHash } from "~utils/register.ts";
 import { getUserByUsername, setRegister } from "~utils/kv.ts";
-import { inFourWeeksInSeconds } from "~utils/constants.ts";
+import {
+  inFourWeeksInMilliseconds,
+  inFourWeeksInSeconds,
+} from "~utils/constants.ts";
 
 export const RegisterBody = z.object({
   username: z.string(),
@@ -44,9 +47,11 @@ export const authRegister = async (ctx: Context) => {
 
     const usageCount = 0;
     const roles = ["user"];
-    const expirationDate =
+    const expirationDateInSeconds =
       Temporal.Now.instant().epochSeconds + inFourWeeksInSeconds;
-    const apiKey = await genApiKey({ exp: expirationDate, roles });
+    const expirationDateInMilliSeconds =
+      Temporal.Now.instant().epochMilliseconds + inFourWeeksInMilliseconds;
+    const apiKey = await genApiKey({ exp: expirationDateInSeconds, roles });
 
     await setRegister({
       username,
@@ -54,10 +59,11 @@ export const authRegister = async (ctx: Context) => {
       roles,
       hashedPassword,
       usageCount,
+      expireIn: expirationDateInMilliSeconds,
     });
 
     ctx.response.headers.set("Authorization", `Bearer ${apiKey}`);
-    ctx.response.body = { usageCount, expirationDate };
+    ctx.response.body = { usageCount, expirationDate: expirationDateInSeconds };
   } catch (e) {
     errorHandler(ctx, e);
   }

@@ -4,6 +4,7 @@ type UserStoreValue = {
   hashedPassword: string;
   roles: string[];
   apiKey: string;
+  expireIn?: number;
 };
 
 type TokenStoreValue = {
@@ -23,8 +24,12 @@ export const deleteToken = async (token: string) => {
   await kv.delete(["tokenStoreValue", token]);
 };
 
-export const setToken = async (token: string, props: TokenStoreValue) => {
-  await kv.set(["tokenStoreValue", token], props);
+export const setToken = async (
+  token: string,
+  props: TokenStoreValue,
+  expiration?: number
+) => {
+  await kv.set(["tokenStoreValue", token], props, { expireIn: expiration });
 };
 
 export const getToken = async (token: string): Promise<TokenStoreValue> => {

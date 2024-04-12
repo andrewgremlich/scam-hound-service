@@ -1,7 +1,10 @@
 import { Context } from "Oak";
 import { z } from "zod";
 
-import { inFourWeeksInSeconds } from "~utils/constants.ts";
+import {
+  inFourWeeksInMilliseconds,
+  inFourWeeksInSeconds,
+} from "~utils/constants.ts";
 import { genToken } from "~utils/register.ts";
 import { setToken, getUserById } from "~utils/kv.ts";
 import { errorHandler } from "~utils/errorHandler.ts";
@@ -24,7 +27,7 @@ export const IssueTokenParams = z.object({
 export type IssueTokenParams = z.infer<typeof IssueTokenParams>;
 
 /**
- * 
+ *
  * @param {number} numberToIssue the number of tokens to issue
  * @param {'yes'|'no'|undefined} certain the user is certain to issue the tokens
  * @returns {{ tokens: string[] }} object with the name 'tokens' and the property 'tokens' with the array of tokens
@@ -45,6 +48,8 @@ export const issueToken = async (ctx: Context) => {
     for (let i = 0; i < numberToIssue; i++) {
       const expirationDate =
         Temporal.Now.instant().epochSeconds + inFourWeeksInSeconds;
+      const expirationDateInMilliseconds =
+        Temporal.Now.instant().epochMilliseconds + inFourWeeksInMilliseconds;
       const now = Temporal.Now.instant().epochSeconds;
       const JWTPayloadBit = {
         exp: expirationDate,
@@ -59,7 +64,7 @@ export const issueToken = async (ctx: Context) => {
 
       tokens.push(token);
 
-      await setToken(token, JWTPayloadBit);
+      await setToken(token, JWTPayloadBit, expirationDateInMilliseconds);
     }
 
     ctx.response.body = { tokens };
