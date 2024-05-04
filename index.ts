@@ -8,9 +8,9 @@ import { scamHound } from "./routers/scamhound.ts";
 // Deno.cron("Clean up expired tokens weekly", "15 4 * * 6", cleanUpExpiredTokens);
 
 const api = new Router().use(
-  "/api",
+  "/api/v1",
   scamHound.routes(),
-  scamHound.allowedMethods()
+  scamHound.allowedMethods(),
 );
 
 await new Application().use(api.routes()).listen({ port: 8000 });

@@ -35,3 +35,8 @@ const scamalytics = async () => {
 export const urlInfo = async (ctx: Context) => {
   ctx.response.body = { urlInfo: "urlInfo" };
 };
+
+// https://docs.virustotal.com/reference/public-vs-premium-api
+// https://developers.google.com/safe-browsing/reference
+// https://docs.abuseipdb.com/#configuring-fail2ban
+// API service? https://rapidapi.com/

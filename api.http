@@ -1,8 +1,9 @@
 @HOST=http://localhost:8000
 @TOKEN=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTIzNjg5NDQsImV4cCI6MTcxNDc4ODE0NCwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZXMiOlsidXNlciJdfQ.U1tinUjtKO00_t7BAHUlHR9FfHtswWjmJbF9poeqV03MpUdFnVy6GtGhJs9_CXfmy06c_o5bRX_jqy8PUFJYtw
+@API_V1=api/v1
 
 ###
-POST {{HOST}}/api/auth/register HTTP/1.1
+POST {{HOST}}/{{API_V1}}/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
@@ -11,15 +12,15 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{HOST}}/api/auth/register/delete?certain=yes&tokenToDelete=someothertoken HTTP/1.1
+DELETE {{HOST}}/{{API_V1}}/auth/register/delete?certain=yes&tokenToDelete=someothertoken HTTP/1.1
 Authorization: Bearer {{TOKEN}}
 
 ###
-GET {{HOST}}/api/token/issue?numberToIssue=1&certain=yes HTTP/1.1
+GET {{HOST}}/{{API_V1}}/token/issue?numberToIssue=1&certain=yes HTTP/1.1
 Authorization: Bearer {{TOKEN}}
 
 ###
-POST {{HOST}}/api/scam-check/ai-query?certain=yes HTTP/1.1
+POST {{HOST}}/{{API_V1}}/scam-check/ai-query?certain=yes HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 

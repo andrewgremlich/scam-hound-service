@@ -71,6 +71,7 @@ export const getUserById = async (apiKey: string): Promise<UserStoreValue> => {
   return (await kv.get(["apiKey", apiKey])).value as UserStoreValue;
 };
 
+// TODO: double check secondary indices https://docs.deno.com/deploy/kv/manual/secondary_indexes
 export const setRegister = async (tokenRequirements: UserStoreValue) => {
   const primaryKey = ["apiKey", tokenRequirements.apiKey];
   const secondaryKey = ["username", tokenRequirements.username];
