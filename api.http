@@ -1,5 +1,5 @@
 @HOST=http://localhost:8000
-@TOKEN=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTIzNjg5NDQsImV4cCI6MTcxNDc4ODE0NCwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZXMiOlsidXNlciJdfQ.U1tinUjtKO00_t7BAHUlHR9FfHtswWjmJbF9poeqV03MpUdFnVy6GtGhJs9_CXfmy06c_o5bRX_jqy8PUFJYtw
+@TOKEN=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTQ4NzU2NDYsImV4cCI6MTcxNzI5NDg0NiwiaXNzIjoic2NhbS1ob3VuZC1zZXJ2aWNlIiwicm9sZXMiOlsidXNlciJdfQ.0_Ydfps73N6KWUI4Yf94TQLw1Q8qUpkWO7gwtv4TR8FTn2CC32WbKc_G7Oxo3GYrsIaQqBzib2YsrItZTFneCA
 @API_V1=api/v1
 
 ###
@@ -25,6 +25,10 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-    "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzY2FtLWhvdW5kLXNlcnZpY2UiLCJleHAiOjE3MTQ3OTA2MjUsImlhdCI6MTcxMjM3MTQyNSwidXNlZCI6ZmFsc2UsIml0ZW1JblNldCI6MSwibnVtYmVySW5TZXQiOjEsIm93bmVyIjoiZ3JlbWxpY2hAZHVjay5jb20iLCJ2YWx1ZSI6MH0.WwiDR0pXQqicKRSp7p2MlFPZbqMeyVwjbH7L82JONiyI3DwKaiQoROi0qFwyT7U_9vzavej2DX3xvsu7cXvfPA",
+    "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzY2FtLWhvdW5kLXNlcnZpY2UiLCJleHAiOjE3MTcyOTQ4ODAsImlhdCI6MTcxNDg3NTY4MCwidXNlZCI6ZmFsc2UsIml0ZW1JblNldCI6MSwibnVtYmVySW5TZXQiOjEsIm93bmVyIjoiZ3JlbWxpY2hAZHVjay5jb20iLCJ2YWx1ZSI6MH0.0ONX1pvSdZtkio74H9kFXZV0Rot6a8KFAwghjU1lAB74i4KvdDVDZIWGZJvgGy1iUImiC4whgMSeRhGJB0sCAg",
     "textScamCheck": "Congratulations! We are delighted to inform you that you have emerged as the lucky winner of our prestigious Global Lottery Jackpot. After a rigorous selection process, your email address was chosen as one of the fortunate winners in our random draw."
 }
+
+###
+GET {{HOST}}/{{API_V1}}/scam-check/url-info?urlToScan=https://google.com HTTP/1.1
+Authorization: Bearer {{TOKEN}}

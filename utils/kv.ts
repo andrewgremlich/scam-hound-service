@@ -27,7 +27,7 @@ export const deleteToken = async (token: string) => {
 export const setToken = async (
   token: string,
   props: TokenStoreValue,
-  expiration?: number
+  expiration?: number,
 ) => {
   await kv.set(["tokenStoreValue", token], props, { expireIn: expiration });
 };
@@ -41,7 +41,7 @@ export const setEncryptKeyInStore = async (label: string, key: JsonWebKey) => {
 };
 
 export const getEncryptKeyFromStore = async (
-  label: string
+  label: string,
 ): Promise<JsonWebKey | undefined> => {
   const privateKey = await kv.get<JsonWebKey>(["encryptKeyInStore", label]);
 
@@ -54,7 +54,7 @@ export const getEncryptKeyFromStore = async (
 };
 
 export const getUserByUsername = async (
-  username: string
+  username: string,
 ): Promise<UserStoreValue> => {
   const user1 = await kv.get(["username", username]);
 
